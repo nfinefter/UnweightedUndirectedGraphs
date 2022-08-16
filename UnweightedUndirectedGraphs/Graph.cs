@@ -158,22 +158,49 @@ namespace UnweightedUndirectedGraphs
 
         }
 
-        //public List<T> DFS(Vertex<T> start, Vertex<T> end)
-        //{
-        //    List<T> list = new List<T>();
-        //    list.Add(start.Value);
-        //    list.Add(dfs(start, end));
-        //    return list;
-        //}
-        //private T dfs(Vertex<T> start, Vertex<T> end)
-        //{
-        //    Vertex<T> vertex = start;
-        //    for (int i = 0; i < vertex.NeighborCount; i++)
-        //    {
-        //        dfs(start.Neighbors[i], end);
-        //        return start.Neighbors[i].Value;
-        //    }
-        //    return start.Value;
-        //}
+        public T[] BreadthFirstSearch(T inputStart, T inputEnd)
+        {
+            Queue<Vertex<T>> queue = new Queue<Vertex<T>>();
+
+            Vertex<T> start = Search(inputStart);
+            Vertex<T> end = Search(inputEnd);
+            start.Visited = true;
+
+            Vertex<T> cursor = start;
+
+            //List<T> path = new List<T>();
+
+            while (cursor != end)
+            {
+                for (int i = 0; i < cursor.NeighborCount; i++)
+                {
+                    if (cursor.Neighbors[i].Visited == false)
+                    {
+                        queue.Enqueue(cursor.Neighbors[i]);
+                        cursor.Neighbors[i].Visited = true;
+                        cursor.Neighbors[i].Prev = cursor;
+                    }
+                }
+                cursor = queue.Dequeue();
+            }
+
+            //Best Memory Solution Below for Reversing
+            // path.Add(cursor.Value);
+            int pathLength = 0;
+            while (cursor.Prev != null)
+            {
+                cursor = cursor.Prev;
+                pathLength++; ;
+            }
+            T[] items = new T[pathLength];
+            cursor = end;
+            for (int i = 0; i < pathLength; i++)
+            {
+                cursor = cursor.Prev;
+                items[pathLength - i - 1] = cursor.Value;
+            }
+
+            return items;
+        }
     }
 }

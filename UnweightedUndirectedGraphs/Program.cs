@@ -8,7 +8,6 @@ namespace UnweightedUndirectedGraphs
         static void Main(string[] args)
         {
             Graph<string> graph = new Graph<string>();
-            List<string> items = new List<string>();
 
             //for (int i = 0; i < 10; i++)
             //{
@@ -44,9 +43,9 @@ namespace UnweightedUndirectedGraphs
             graph.AddEdge("SEA", "JFK");
             graph.AddEdge("SEA", "ABA");
 
-            items = graph.DepthFirstSearch("LAX", "JFK");
+            string[] items = graph.BreadthFirstSearch("LAX", "JFK");
 
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < items.Length; i++)
             {
                 Console.WriteLine(items[i]);
             }

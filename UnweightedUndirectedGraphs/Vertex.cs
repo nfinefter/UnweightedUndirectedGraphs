@@ -8,7 +8,9 @@ namespace UnweightedUndirectedGraphs
     {
         public T Value { get; set; }
         public List<Vertex<T>> Neighbors { get; set; }
-       
+        public bool Visited { get; set; }
+        public Vertex<T> Prev { get; set; }
+
         public int NeighborCount => Neighbors.Count;
 
         public Vertex(T value)
